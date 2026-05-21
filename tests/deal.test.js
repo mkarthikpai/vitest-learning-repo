@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 import { createCards } from "../src/createCards";
 import { deal } from "../src/deal";
 import { logDealRound } from "../src/helpers/loggers";
@@ -32,6 +32,10 @@ describe("deal", () => {
     "King",
   ];
 
+  beforeEach(() => {
+    logDealRound.mockClear();
+  });
+
   it("deals the correct number of hands", () => {
     const cards = createCards({ suits, values });
     const hands = deal(cards, 5, 3);
@@ -50,7 +54,6 @@ describe("deal", () => {
 
   it("calls the logger a correct number of times", () => {
     const cards = createCards({ suits, values });
-    logDealRound.mockClear();
 
     deal(cards, 5, 3);
 
